@@ -9,6 +9,7 @@ import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
+import { SkillCard } from "@/components/SkillCard";
 
 interface Settings {
   fullName: string;
@@ -89,15 +90,15 @@ export default function Home() {
   return (
     <div className="space-y-24 py-12">
       {/* Hero Section */}
-      <section className="flex flex-col items-center justify-center text-center space-y-8">
+      <section className="flex flex-col items-center justify-center text-center space-y-8 px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="space-y-4"
+          className="space-y-4 w-full max-w-[600px]"
         >
           {settings?.profileImage && (
-            <div className="relative w-32 h-32 mb-8 rounded-full overflow-hidden mx-auto">
+            <div className="relative w-24 h-24 sm:w-32 sm:h-32 mb-8 rounded-full overflow-hidden mx-auto">
               <Image
                 src={settings.profileImage}
                 alt={settings.fullName}
@@ -106,13 +107,13 @@ export default function Home() {
               />
             </div>
           )}
-          <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter">
             Hi, I'm {settings?.fullName || "Developer"}
           </h1>
-          <p className="mt-4 text-xl text-muted-foreground max-w-[600px] mx-auto">
+          <p className="mt-4 text-lg sm:text-xl text-muted-foreground">
             {settings?.title || "A passionate developer"}
           </p>
-          <p className="mt-2 text-muted-foreground max-w-[600px] mx-auto">
+          <p className="mt-2 text-base sm:text-lg text-muted-foreground">
             {settings?.bio || "Building amazing web experiences"}
           </p>
         </motion.div>
@@ -121,13 +122,13 @@ export default function Home() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex gap-4"
+          className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
         >
-          <Link href="/projects">
-            <Button size="lg">View My Work</Button>
+          <Link href="/projects" className="w-full sm:w-auto">
+            <Button size="lg" className="w-full sm:w-auto">View My Work</Button>
           </Link>
-          <Link href="/contact">
-            <Button variant="outline" size="lg">
+          <Link href="/contact" className="w-full sm:w-auto">
+            <Button variant="outline" size="lg" className="w-full sm:w-auto">
               Contact Me
             </Button>
           </Link>
@@ -138,7 +139,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex gap-4 mt-4"
+            className="flex flex-wrap justify-center gap-4 mt-4 px-4"
           >
             {settings.socialLinks.map((link, index) => (
               <a
@@ -146,7 +147,7 @@ export default function Home() {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="text-muted-foreground hover:text-primary transition-colors text-sm sm:text-base"
               >
                 {link.platform}
               </a>
@@ -157,20 +158,20 @@ export default function Home() {
 
       {/* Featured Projects Section */}
       {featuredProjects.length > 0 && (
-        <section className="space-y-8">
+        <section className="space-y-8 px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="text-center space-y-4"
           >
-            <h2 className="text-3xl font-bold">Featured Projects</h2>
-            <p className="text-muted-foreground max-w-[600px] mx-auto">
+            <h2 className="text-2xl sm:text-3xl font-bold">Featured Projects</h2>
+            <p className="text-muted-foreground max-w-[600px] mx-auto text-sm sm:text-base">
               Here are some of my recent works that showcase my skills and expertise.
             </p>
           </motion.div>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {featuredProjects.map((project, index) => (
               <motion.div
                 key={project.id}
@@ -233,41 +234,31 @@ export default function Home() {
 
       {/* Skills Section */}
       {skills.length > 0 && (
-        <section className="space-y-8">
+        <section className="space-y-8 px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="text-center space-y-4"
           >
-            <h2 className="text-3xl font-bold">Skills & Expertise</h2>
-            <p className="text-muted-foreground max-w-[600px] mx-auto">
+            <h2 className="text-2xl sm:text-3xl font-bold">Skills & Expertise</h2>
+            <p className="text-muted-foreground max-w-[600px] mx-auto text-sm sm:text-base">
               Here are some of the technologies and tools I work with.
             </p>
           </motion.div>
 
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {skills.map((skill, index) => (
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.from(new Set(skills.map(skill => skill.category))).map((category, index) => (
               <motion.div
-                key={skill.id}
+                key={category}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <Card>
-                  <CardContent className="pt-6">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="font-medium">{skill.name}</span>
-                      <span className="text-sm text-muted-foreground">{skill.category}</span>
-                    </div>
-                    <div className="w-full bg-secondary h-2 rounded-full">
-                      <div
-                        className="bg-primary h-2 rounded-full"
-                        style={{ width: `${skill.level}%` }}
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
+                <SkillCard
+                  category={category}
+                  skills={skills.filter(skill => skill.category === category)}
+                />
               </motion.div>
             ))}
           </div>
@@ -279,14 +270,14 @@ export default function Home() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center space-y-8"
+        className="text-center space-y-8 px-4"
       >
-        <h2 className="text-3xl font-bold">Let's Work Together</h2>
-        <p className="text-muted-foreground max-w-[600px] mx-auto">
+        <h2 className="text-2xl sm:text-3xl font-bold">Let's Work Together</h2>
+        <p className="text-muted-foreground max-w-[600px] mx-auto text-sm sm:text-base">
           I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
         </p>
-        <Link href="/contact">
-          <Button size="lg">Get in Touch</Button>
+        <Link href="/contact" className="inline-block w-full sm:w-auto">
+          <Button size="lg" className="w-full sm:w-auto">Get in Touch</Button>
         </Link>
       </motion.section>
     </div>

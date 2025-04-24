@@ -101,23 +101,23 @@ export default function AboutPage() {
   const skillCategories = Array.from(new Set(skills.map(skill => skill.category)));
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-12 px-4 py-12">
       <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold">About Me</h1>
-        <p className="text-muted-foreground max-w-[600px] mx-auto">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold">About Me</h1>
+        <p className="text-muted-foreground max-w-[600px] mx-auto text-sm sm:text-base">
           Get to know more about my journey, skills, and what drives me as a developer.
         </p>
       </div>
 
-      <div className="grid gap-8 md:grid-cols-2">
+      <div className="grid gap-8 grid-cols-1 md:grid-cols-2">
         <div className="space-y-6">
           {about.map((section) => (
             <Card key={section.id}>
               <CardHeader>
-                <CardTitle>{section.title}</CardTitle>
+                <CardTitle className="text-lg sm:text-xl">{section.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground whitespace-pre-line">
+                <p className="text-muted-foreground text-sm sm:text-base whitespace-pre-line">
                   {section.content}
                 </p>
               </CardContent>
@@ -127,16 +127,16 @@ export default function AboutPage() {
           {settings?.education && settings.education.length > 0 && (
             <Card>
               <CardHeader>
-                <CardTitle>Education</CardTitle>
+                <CardTitle className="text-lg sm:text-xl">Education</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 {settings.education.map((edu) => (
                   <div key={edu.id} className="space-y-2">
-                    <h3 className="font-semibold text-lg">{edu.degree}</h3>
-                    <p className="text-muted-foreground">{edu.institution}</p>
-                    <p className="text-sm text-muted-foreground">{edu.year}</p>
+                    <h3 className="font-semibold text-base sm:text-lg">{edu.degree}</h3>
+                    <p className="text-muted-foreground text-sm sm:text-base">{edu.institution}</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">{edu.year}</p>
                     {edu.description && (
-                      <p className="text-sm text-muted-foreground">{edu.description}</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground">{edu.description}</p>
                     )}
                   </div>
                 ))}
@@ -147,20 +147,20 @@ export default function AboutPage() {
           {settings?.certifications && settings.certifications.length > 0 && (
             <Card>
               <CardHeader>
-                <CardTitle>Certifications</CardTitle>
+                <CardTitle className="text-lg sm:text-xl">Certifications</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 {settings.certifications.map((cert) => (
                   <div key={cert.id} className="space-y-2">
-                    <h3 className="font-semibold text-lg">{cert.name}</h3>
-                    <p className="text-muted-foreground">{cert.issuer}</p>
-                    <p className="text-sm text-muted-foreground">{cert.date}</p>
+                    <h3 className="font-semibold text-base sm:text-lg">{cert.name}</h3>
+                    <p className="text-muted-foreground text-sm sm:text-base">{cert.issuer}</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">{cert.date}</p>
                     {cert.url && (
                       <a
                         href={cert.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm text-primary hover:underline"
+                        className="text-sm text-primary hover:underline block"
                       >
                         View Certificate →
                       </a>
@@ -173,7 +173,7 @@ export default function AboutPage() {
         </div>
 
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold">Skills</h2>
+          <h2 className="text-xl sm:text-2xl font-bold">Skills</h2>
           {skillCategories.map((category) => (
             <SkillCard
               key={category}
@@ -185,17 +185,17 @@ export default function AboutPage() {
           {settings?.socialLinks && settings.socialLinks.length > 0 && (
             <Card>
               <CardHeader>
-                <CardTitle>Connect With Me</CardTitle>
+                <CardTitle className="text-lg sm:text-xl">Connect With Me</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="flex flex-wrap gap-4">
+                <div className="flex flex-wrap gap-4 justify-center sm:justify-start">
                   {settings.socialLinks.map((link, index) => (
                     <a
                       key={index}
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-primary hover:underline"
+                      className="text-primary hover:underline text-sm sm:text-base"
                     >
                       {link.platform}
                     </a>

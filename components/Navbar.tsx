@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { Menu, X } from "lucide-react";
 
 interface Settings {
   fullName: string;
@@ -13,6 +14,7 @@ interface Settings {
 
 export default function Navbar() {
   const [settings, setSettings] = useState<Settings | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -36,7 +38,9 @@ export default function Navbar() {
         <Link href="/" className="text-xl font-bold">
           {settings?.fullName || "Portfolio"}
         </Link>
-        <div className="flex items-center gap-4">
+        
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center gap-4">
           <Link href="/" className="hover:text-primary">
             Home
           </Link>
@@ -50,12 +54,57 @@ export default function Navbar() {
             Contact
           </Link>
           <ThemeToggle />
-          {/* Admin  btn hidden on production */}
-          {/* <Link href="/admin"> */}
-            {/* <Button variant="outline">Admin</Button> */}
-          {/* </Link> */}
+        </div>
+
+        {/* Mobile Menu Button */}
+        <div className="flex items-center gap-4 md:hidden">
+          <ThemeToggle />
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden"
+          >
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </Button>
         </div>
       </div>
+
+      {/* Mobile Navigation */}
+      {isMenuOpen && (
+        <div className="md:hidden border-t">
+          <div className="container mx-auto px-4 py-4 space-y-4">
+            <Link
+              href="/"
+              className="block hover:text-primary"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Home
+            </Link>
+            <Link
+              href="/projects"
+              className="block hover:text-primary"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Projects
+            </Link>
+            <Link
+              href="/about"
+              className="block hover:text-primary"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              About
+            </Link>
+            <Link
+              href="/contact"
+              className="block hover:text-primary"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Contact
+            </Link>
+          </div>
+        </div>
+      )}
     </nav>
   );
 } 
