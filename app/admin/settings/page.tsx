@@ -43,6 +43,7 @@ interface Settings {
   email: string;
   location?: string;
   profileImage?: string;
+  cvLink?: string;
 
   // SEO
   siteTitle: string;
@@ -579,6 +580,27 @@ export default function AdminSettingsPage() {
                 </div>
               </div>
             ))}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>CV/Resume</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <label htmlFor="cvLink">CV/Resume Link (Google Drive)</label>
+              <Input
+                id="cvLink"
+                name="cvLink"
+                value={settings.cvLink}
+                onChange={handleChange}
+                placeholder="https://drive.google.com/..."
+              />
+              <p className="text-sm text-muted-foreground">
+                Upload your CV/Resume to Google Drive and paste the shareable link here.
+              </p>
+            </div>
           </CardContent>
         </Card>
 

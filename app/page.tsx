@@ -21,6 +21,7 @@ interface Settings {
     url: string;
     icon?: string;
   }[];
+  cvLink?: string;
 }
 
 interface Project {
@@ -132,6 +133,18 @@ export default function Home() {
               Contact Me
             </Button>
           </Link>
+          {settings?.cvLink && (
+            <a
+              href={settings.cvLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto"
+            >
+              <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+                View CV
+              </Button>
+            </a>
+          )}
         </motion.div>
 
         {settings?.socialLinks && settings.socialLinks.length > 0 && (
